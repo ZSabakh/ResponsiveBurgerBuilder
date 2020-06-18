@@ -5,8 +5,7 @@ import Checkout from './containers/Checkout/Checkout';
 import { Route, Switch } from 'react-router-dom';
 import Orders from './containers/Orders/Orders';
 
-class App extends Component {
-render() {
+function App() {
   return (
     <div>
       <Layout>
@@ -19,6 +18,6 @@ render() {
     </div>
   );
 }
-}
+
 
 export default App;
