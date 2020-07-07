@@ -5,8 +5,6 @@
     margin: 5px 0;
 }
 
-
-
 .BuildControl button {
     display: block;
     font: inherit;
@@ -17,6 +15,7 @@
     cursor: pointer;
     outline: none;
 }
+
 
 .BuildControl button:disabled {
     background-color: #AC9980;
