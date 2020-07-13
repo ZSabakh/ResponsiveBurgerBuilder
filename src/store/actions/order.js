@@ -22,11 +22,11 @@ export const purchaseStart = () => {
   };
 };
 
-export const purchase = (data) => {
+export const purchase = (data, token) => {
   return (dispatch) => {
     dispatch(purchaseStart());
     axios
-      .post("/orders.json", data)
+      .post("/orders.json?auth=" + token, data)
       .then((response) => {
         dispatch(purchaseSuccess(response.data.name, data));
       })
@@ -62,11 +62,11 @@ export const fetchOrdersInit = () => {
   };
 };
 
-export const fetchOrders = () => {
+export const fetchOrders = (token) => {
   return (dispatch) => {
     dispatch(fetchOrdersInit());
     axios
-      .get("/orders.json")
+      .get("/orders.json?auth=" + token)
       .then((res) => {
         const fetchedOrders = [];
         for (let key in res.data) {

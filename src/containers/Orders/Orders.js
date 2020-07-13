@@ -8,7 +8,7 @@ import Spinner from "../../components/UI/Spinner/Spinner";
 
 function Orders(props) {
   useEffect(() => {
-    props.fetchOrders();
+    props.fetchOrders(props.token);
   }, []);
 
   let orders = <Spinner />;
@@ -28,12 +28,13 @@ const mapStateToProps = (state) => {
   return {
     orders: state.order.orders,
     loading: state.order.loading,
+    token: state.auth.token,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchOrders: () => dispatch(actions.fetchOrders()),
+    fetchOrders: (token) => dispatch(actions.fetchOrders(token)),
   };
 };
 

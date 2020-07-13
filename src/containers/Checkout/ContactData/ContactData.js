@@ -128,7 +128,7 @@ function ContactData(props) {
       orderData: formData,
     };
 
-    props.orderBurger(order);
+    props.orderBurger(order, props.token);
   };
 
   const inputChangedHandler = (event, inputIdentify) => {
@@ -198,12 +198,14 @@ const mapStateToProps = (state) => {
     ingrds: state.burger.ingredients,
     price: state.burger.totalPrice,
     loading: state.order.loading,
+    token: state.auth.token,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    orderBurger: (orderData) => dispatch(actions.purchase(orderData)),
+    orderBurger: (orderData, token) =>
+      dispatch(actions.purchase(orderData, token)),
   };
 };
 
