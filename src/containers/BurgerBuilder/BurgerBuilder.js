@@ -34,7 +34,12 @@ function BurgerBuilder(props) {
   }
 
   const purchaseHandler = () => {
-    setPurchasing(true);
+    if (props.authenticated) {
+      setPurchasing(true);
+    } else {
+      props.setRedirectPath('/checkout')
+      props.history.push("/auth");
+    }
   };
 
   const purchaseCancelHandler = () => {
@@ -62,6 +67,7 @@ function BurgerBuilder(props) {
         <BuildControls
           ingredientAdded={props.ingredientAdd}
           ingredientRemoved={props.ingredientRemove}
+          auth={props.authenticated}
           disabled={disabledInfo}
           purchasable={updatePurchaseState(props.ingrds)}
           ordered={purchaseHandler}
@@ -94,6 +100,7 @@ const mapStateToProps = (state) => {
     ingrds: state.burger.ingredients,
     price: state.burger.totalPrice,
     error: state.burger.error,
+    authenticated: state.auth.token !== null,
   };
 };
 
@@ -104,6 +111,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(burgerActions.removeIngredient(ingred)),
     fetchIngredients: () => dispatch(burgerActions.fetchIngredients()),
     initPurchase: () => dispatch(burgerActions.purchaseInit()),
+    setRedirectPath: (path) => dispatch(burgerActions.setRedirectPath(path)),
   };
 };
 

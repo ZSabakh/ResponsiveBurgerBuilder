@@ -5,6 +5,7 @@ const initialState = {
   userId: null,
   error: null,
   loading: false,
+  redirectPath: "/",
 };
 
 const reducer = (state = initialState, action) => {
@@ -34,6 +35,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         token: null,
         userId: null,
+      };
+    case actionTypes.SET_REDIRECT_PATH:
+      return {
+        ...state,
+        redirectPath: action.path,
       };
     default:
       return state;

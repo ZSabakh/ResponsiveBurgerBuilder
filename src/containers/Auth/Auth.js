@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import Input from "../../components/UI/Input/Input";
 import Button from "../../components/UI/Button/Button";
@@ -37,6 +38,12 @@ function Auth(props) {
       touched: false,
     },
   });
+
+  useEffect(() => {
+    if (!props.building && props.redirectPath !== "/") {
+      props.setRedirectPath();
+    }
+  }, []);
 
   const [signUp, setSignUp] = useState(true);
 
@@ -118,6 +125,9 @@ function Auth(props) {
     <div className={classes.Auth}>
       {errorMessage}
       <form onSubmit={submitHandler}>
+        {props.authenticated ? (
+          <Redirect to={props.redirectPath}></Redirect>
+        ) : null}
         {form}
         <Button btnType="Success">SUBMIT</Button>
       </form>
@@ -132,6 +142,9 @@ const mapStateToProps = (state) => {
   return {
     loading: state.auth.loading,
     error: state.auth.error,
+    authenticated: state.auth.token !== null,
+    building: state.burger.building,
+    redirectPath: state.auth.redirectPath,
   };
 };
 
@@ -139,6 +152,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     Authorize: (email, password, isSignup) =>
       dispatch(actions.auth(email, password, isSignup)),
+    setRedirectPath: () => dispatch(actions.setRedirectPath("/")),
   };
 };
 
