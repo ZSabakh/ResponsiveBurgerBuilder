@@ -16,7 +16,7 @@ function Orders(props) {
     orders = props.orders.map((order) => (
       <Order
         key={order.id}
-        ingredients={order.ingredients}
+        ingredients={order.Ingredients}
         price={order.price}
       />
     ));
